@@ -62,18 +62,18 @@ void Initialize()
             continue;
         }
 
-        Console.Write("Введите координаты (x/y/z): ");
+        Console.Write("Введите координаты (x/z/y): ");
         string input = Console.ReadLine();
 
         // Использование координат по-умолчанию, если координаты не вводились
         if (string.IsNullOrEmpty(input)) break;
 
         // Обработка ввода координат
-        var parts = input.Split('/');
+        var parts = input.Split(new char[] { ' ', '/', '.' });
         if (parts.Length != 3 ||
             !int.TryParse(parts[0], out int x) ||
-            !int.TryParse(parts[1], out int y) ||
-            !int.TryParse(parts[2], out int z))
+            !int.TryParse(parts[2], out int y) ||
+            !int.TryParse(parts[1], out int z))
         {
             Console.WriteLine("Неверный формат координат. Пример: 10/20/5");
             WaitForKey();
@@ -285,8 +285,8 @@ Vector3 ParseCoordinatesFromFilename(string filePath)
 
     if (coords.Length == 3 &&
         int.TryParse(coords[0], out int x) &&
-        int.TryParse(coords[1], out int y) &&
-        int.TryParse(coords[2], out int z))
+        int.TryParse(coords[2], out int y) &&
+        int.TryParse(coords[1], out int z))
     {
         return new Vector3(x, y, z);
     }
